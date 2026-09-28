@@ -1,0 +1,514 @@
+/* ============================================================
+   PRAVĀHA-TWIN — Design System Stylesheet
+   Professional Industrial Engineering Interface
+   ============================================================ */
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+    /* Backgrounds */
+    --bg-base:       #0a0e14;
+    --bg-surface:    #0f1620;
+    --bg-elevated:   #141c28;
+    --bg-panel:      #111820;
+
+    /* Borders */
+    --border-subtle: #151f2d;
+    --border-normal: #1e2a38;
+    --border-strong: #2a3a4a;
+
+    /* Text */
+    --text-primary:  #e2e8f0;
+    --text-secondary:#94a3b8;
+    --text-muted:    #64748b;
+    --text-faint:    #475569;
+
+    /* Semantic Colors */
+    --green:  #22c55e;
+    --green-dim: #166534;
+    --yellow: #eab308;
+    --red:    #ef4444;
+    --blue:   #3b82f6;
+    --orange: #f97316;
+
+    /* Typography */
+    --font-ui:   'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+
+    /* Layout */
+    --topbar-h:    48px;
+    --sidebar-w:   190px;
+    --bottombar-h: 30px;
+}
+
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 13px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-rows: var(--topbar-h) 1fr var(--bottombar-h);
+    grid-template-areas:
+        "topbar  topbar"
+        "sidebar main"
+        "bottom  bottom";
+}
+
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar {
+    grid-area: topbar;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-normal);
+    z-index: 100;
+}
+
+.topbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-primary);
+}
+
+.brand-accent {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.brand-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-strong);
+}
+
+.brand-tagline {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.topbar__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+}
+
+.status-dot.warning {
+    background: var(--yellow);
+    box-shadow: 0 0 6px rgba(234, 179, 8, 0.4);
+}
+
+.status-dot.fault {
+    background: var(--red);
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
+}
+
+.status-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.status-sep {
+    color: var(--text-faint);
+}
+
+.status-network {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+.topbar__institution {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+}
+
+.inst-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.inst-dept {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+
+/* ============================================================
+   LEFT SIDEBAR
+   ============================================================ */
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-normal);
+    overflow-y: auto;
+}
+
+.sidebar__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.sidebar__item:hover {
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sidebar__item.active {
+    color: var(--text-primary);
+    font-weight: 500;
+    border-left-color: var(--green);
+    background: rgba(34, 197, 94, 0.04);
+}
+
+.sidebar__icon {
+    font-size: 14px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar__label {
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bg-base);
+}
+
+.main__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    flex-shrink: 0;
+}
+
+.main__title h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.3px;
+}
+
+.main__subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* Scenario Selector */
+.scenario-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.scenario-selector__label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+}
+
+.scenario-selector__buttons {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border-normal);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.scenario-btn {
+    padding: 5px 14px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border-normal);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.2px;
+}
+
+.scenario-btn:last-child {
+    border-right: none;
+}
+
+.scenario-btn:hover {
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.scenario-btn.active {
+    color: var(--text-primary);
+    font-weight: 500;
+    background: rgba(34, 197, 94, 0.08);
+    box-shadow: inset 0 -2px 0 var(--green);
+}
+
+/* Diagram Container */
+.main__diagram {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: hidden;
+}
+
+#network-sld {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/* ============================================================
+   SVG TEXT CLASSES (for inline SVG styling)
+   ============================================================ */
+
+/* Grid source label */
+.sld-grid-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    fill: #64748b;
+    letter-spacing: 1px;
+}
+
+/* Panel title (bus name) */
+.sld-panel-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    fill: #e2e8f0;
+}
+
+/* Panel type label [Slack], [PQ] */
+.sld-panel-type {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    fill: #64748b;
+}
+
+/* Panel data text */
+.sld-panel-data {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    fill: #94a3b8;
+}
+
+/* Panel numerical values */
+.sld-panel-num {
+    fill: #e2e8f0;
+    font-weight: 500;
+}
+
+/* Load values */
+.sld-load-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    fill: #94a3b8;
+}
+
+/* Numerical values in loads and DER */
+.sld-num {
+    fill: #e2e8f0;
+    font-weight: 500;
+}
+
+/* Branch parameter labels */
+.sld-branch-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    fill: #4a6060;
+}
+
+/* DER symbol (~ in generator circle) */
+.sld-der-symbol {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 600;
+    fill: #22c55e;
+}
+
+/* DER values */
+.sld-der-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    fill: #94a3b8;
+}
+
+/* Battery label inside symbol */
+.sld-bat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 7px;
+    font-weight: 600;
+    fill: #22c55e;
+    letter-spacing: 0.5px;
+}
+
+/* Provenance badge text */
+.sld-provenance {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    fill: #94a3b8;
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   BOTTOM BAR
+   ============================================================ */
+.bottombar {
+    grid-area: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-normal);
+    font-size: 10px;
+}
+
+.bottombar__left,
+.bottombar__center,
+.bottombar__right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bottombar__badge {
+    color: var(--green);
+    font-weight: 500;
+    font-size: 10px;
+}
+
+.bottombar__sep {
+    color: var(--text-faint);
+}
+
+.bottombar__text {
+    color: var(--text-muted);
+}
+
+
+/* ============================================================
+   TRANSITIONS — Subtle value update animation
+   ============================================================ */
+.data-panel tspan,
+.sld-load-value tspan,
+.sld-der-value tspan {
+    transition: fill 0.3s ease;
+}
+
+/* Flash effect for updated values */
+.value-updated {
+    fill: var(--green) !important;
+}
+
+
+/* ============================================================
+   RESPONSIVE — Ensure usability on projector
+   ============================================================ */
+@media (max-width: 1200px) {
+    :root {
+        --sidebar-w: 48px;
+    }
+
+    .sidebar__label {
+        display: none;
+    }
+
+    .sidebar__item {
+        justify-content: center;
+        padding: 10px 0;
+    }
+
+    .sidebar__icon {
+        font-size: 16px;
+    }
+}
+
+@media (max-height: 700px) {
+    :root {
+        --topbar-h: 40px;
+        --bottombar-h: 26px;
+    }
+
+    .main__header {
+        padding: 6px 16px;
+    }
+}
